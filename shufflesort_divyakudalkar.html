@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .column1 {
+        float: left;
+        width: 80%;
+      }
+
+      .column2 {
+        float: left;
+        width: 20%;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #efefef;
+      }
+
+      .card {
+        float: left;
+        width: 30%;
+        padding: 0 10px;
+      }
+
+      ul {
+        padding-inline-start: 0;
+        margin-block-start: 0;
+        margin-block-end: 0;
+      }
+
+      .row {
+        margin: 0 auto;
+      }
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+
+      @media screen and (max-width: 600px) {
+        .card {
+          width: 100%;
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        .column1 {
+          position: relative;
+          top: 50px;
+          width: 100%;
+        }
+
+        .column2 {
+          position: absolute;
+          top: 0;
+          width: 20em;
+          margin: 0 8em;
+        }
+
+        .card {
+          font-size: 18px !important;
+          background-color: #f1f1f1 !important;
+          color: #000000 !important;
+          height: 60px;
+          line-height: 2;
+          box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+        }
+
+        .bg-dark {
+          border-left: 10px solid #2f454e;
+        }
+
+        .bg-light {
+          border-left: 10px solid #bfbfbf;
+        }
+
+        .bg-medium {
+          border-left: 10px solid #2b8ead;
+        }
+
+        .bg-normal {
+          border-left: 10px solid #6f98a8;
+        }
+
+        h3 {
+          font-size: 20px !important;
+        }
+      }
+
+      h3 {
+        font-size: 2em;
+      }
+
+      .card {
+        padding: 0.5em 0;
+        text-align: center;
+        list-style: none;
+        font-size: 60px;
+        color: #ffffff;
+		line-height: 2.5;
+      }
+
+      p {
+        font-size: 14px;
+        text-align: center;
+        font-style: italic;
+      }
+
+      .bg-dark {
+        background-color: #2f454e;
+      }
+
+      .bg-light {
+        background-color: #bfbfbf;
+      }
+
+      .bg-normal {
+        background-color: #6f98a8;
+      }
+
+      .bg-medium {
+        background-color: #2b8ead;
+      }
+
+      button {
+        background-color: #72c3dc;
+        border: none;
+        box-shadow: 0px 3px #419db9;
+        padding: 5px;
+        width: 100px;
+        color: #ffffff;
+        border-radius: 6px;
+        margin: 5px;
+      }
+
+      .btngroup {
+        text-align: center;
+        padding: 1em;
+      }
+
+    </style>
+    <script>
+      function sortElements() {
+        var list, i, switching, b, shouldSwitch;
+        list = document.getElementById("list");
+        switching = true;
+        while (switching) {
+          switching = false;
+          b = list.getElementsByTagName("LI");
+          for (i = 0; i < (b.length - 1); i++) {
+            shouldSwitch = false;
+            if (Number(b[i].innerHTML) > Number(b[i + 1].innerHTML)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+          if (shouldSwitch) {
+            b[i].parentNode.insertBefore(b[i + 1], b[i]);
+            switching = true;
+          }
+        }
+      }
+
+      function shuffleElements(elem) {
+        function shuffle(arr) {
+          var len = arr.length;
+          var d = len;
+          var array = [];
+          var k, i;
+          for (i = 0; i < d; i++) {
+            k = Math.floor(Math.random() * len);
+            array.push(arr[k]);
+            arr.splice(k, 1);
+            len = arr.length;
+          }
+          for (i = 0; i < d; i++) {
+            arr[i] = array[i];
+          }
+          return arr;
+        }
+        var el = document.querySelectorAll(elem + " *");
+        document.querySelector(elem).innerHTML = "";
+
+        let pos = [];
+        for (let i = 0; i < el.length; i++) {
+          pos.push(i);
+        }
+
+        pos = shuffle(pos);
+        for (let i = 0; i < pos.length; i++) {
+          document.querySelector(elem).appendChild(el[pos[i]]);
+        }
+      }
+
+    </script>
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="column1">
+        <ul id="list">
+          <li class="card bg-normal">1</li>
+          <li class="card bg-medium">2</li>
+          <li class="card bg-dark">3</li>
+          <li class="card bg-medium">4</li>
+          <li class="card bg-dark">5</li>
+          <li class="card bg-light">6</li>
+          <li class="card bg-light">7</li>
+          <li class="card bg-normal">8</li>
+          <li class="card bg-dark">9</li>
+        </ul>
+      </div>
+      <div class="column2 desktop">
+        <button onclick="shuffleElements('ul')">SHUFFLE</button>
+        <button onclick="sortElements()">SORT</button>
+      </div>
+    </div>
+    <p>Shuffle and Sort by Divya Kudalkar</p>
+  </body>
+
+</html>
